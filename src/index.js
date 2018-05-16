@@ -1,5 +1,15 @@
-import main from './views/main.hbs';
+import App from './app';
+// import main from './views/main.hbs';
 
-const root = document.getElementById('root');
+/*
+const routes = {
+  '/': 'Home',
+  '/about': 'About',
+  notFound: 'NotFound'
+};
+*/
 
-root.innerHTML = main();
+new App({
+  el: '#root',
+  component: 'components/Main'
+});
