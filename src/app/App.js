@@ -5,20 +5,22 @@ class App {
   }
 
   init() {
-    const { component } = this.props;
-    if (component) {
-      this.getComponent(component);
+    const { el = '', component = null } = this.props;
+
+    if (el && component) {
+      const element = document.querySelector(el);
+      element.innerHTML = new component().render();
     }
   }
 
-  async getComponent(name) {
+  /*  async getComponent(name) {
     const component = await import('components/Main');
     if (component.default) {
       new component.default({
         component: name
       });
     }
-  }
+  } */
 
   /*
   render(params) {

@@ -1,7 +1,19 @@
+import mainView from 'views/main.hbs';
+
 class Main {
   constructor(props) {
     this.props = props;
-    console.log(props.component);
+    this.state = {
+      message: 'main'
+    };
+  }
+
+  render() {
+    const { message } = this.state;
+
+    return mainView({
+      message
+    });
   }
 }
 
