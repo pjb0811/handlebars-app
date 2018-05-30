@@ -1,11 +1,15 @@
-import { Component } from '../wmp';
+import homeView from 'views/Home.hbs';
 
-class Home extends Component {
+class Home {
   constructor(props) {
-    super(props);
-    this.render({
-      message: 'Home!'
-    });
+    this.props = props;
+    this.state = {
+      message: 'home'
+    };
+  }
+
+  render() {
+    return homeView(this.state);
   }
 }
 

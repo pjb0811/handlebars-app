@@ -1,4 +1,4 @@
-import mainView from 'views/main.hbs';
+import mainView from 'views/Main.hbs';
 
 class Main {
   constructor(props) {

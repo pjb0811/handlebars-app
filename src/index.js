@@ -1,7 +1,11 @@
-import App from './app';
+import App from './App';
 import Main from 'components/Main';
 
 new App({
   el: '#root',
-  component: Main
+  component: Main,
+  routes: {
+    '/': 'components/Home',
+    '/about': 'components/About'
+  }
 });
