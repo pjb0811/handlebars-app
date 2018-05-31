@@ -4,7 +4,11 @@ class Home {
   constructor(props) {
     this.props = props;
     this.state = {
-      message: 'home'
+      message: 'home',
+      test: {
+        a: 1,
+        b: '2'
+      }
     };
   }
 

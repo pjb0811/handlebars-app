@@ -6,7 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    main: './src/index.js'
+    main: ['babel-polyfill', './src/index.js']
   },
   devtool: 'inline-source-map',
   output: {
@@ -29,8 +29,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    historyApiFallback: true,
-    port: 9000
+    historyApiFallback: true
   },
   resolve: {
     alias: {

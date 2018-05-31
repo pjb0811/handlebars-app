@@ -1,10 +1,12 @@
-const express = require('express');
+import express from 'express';
+import expressHbs from 'express-handlebars';
+import renderApp from '../src';
+
 const app = express();
-// const render = require('../src/server/render');
 
 app.get('*', function(req, res) {
-  // console.log(req, res);
-  res.status(200).send(req);
+  res.status(200).send(req.url);
+  // res.render();
 });
 
 app.listen(9001);

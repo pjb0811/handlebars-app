@@ -1,7 +1,6 @@
 class App {
   constructor(props) {
     this.props = props;
-    this.store = {};
     this.init();
   }
 
@@ -10,7 +9,10 @@ class App {
 
     if (el && component) {
       const element = document.querySelector(el);
-      element.innerHTML = new component(this.store).render();
+      this.render({
+        element,
+        component
+      });
 
       if (routes) {
         this.setRouter(element);
@@ -53,15 +55,23 @@ class App {
 
   async renderRoutePage(params) {
     const { name, page, routes } = params;
-    let Component = routes[name];
+    let component = routes[name];
 
-    if (typeof Component === 'string') {
-      Component = await import(`./${Component}`);
-      Component = Component.default;
+    if (typeof component === 'string') {
+      component = await import(`../${component}`);
+      component = component.default;
     }
-
-    page.innerHTML = new Component(this.store).render();
+    this.render({
+      element: page,
+      component
+    });
     history.pushState(null, name, name);
+  }
+
+  render(params) {
+    const { element, component } = params;
+    const comp = new component();
+    element.innerHTML = comp.render();
   }
 
   stopEvent(e) {

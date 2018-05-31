@@ -1,11 +1,11 @@
-import App from './App';
-import Main from 'components/Main';
+import App from './modules/App';
+import Main from 'components/pages/Main';
 
-new App({
+export default new App({
   el: '#root',
   component: Main,
   routes: {
-    '/': 'components/Home',
-    '/about': 'components/About'
+    '/': 'components/pages/Home',
+    '/about': 'components/pages/About'
   }
 });
