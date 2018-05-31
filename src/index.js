@@ -1,7 +1,7 @@
 import App from './modules/App';
 import Main from 'components/pages/Main';
 
-export default new App({
+const app = new App({
   el: '#root',
   component: Main,
   routes: {
@@ -9,3 +9,13 @@ export default new App({
     '/about': 'components/pages/About'
   }
 });
+
+app
+  .renderRoutePage({
+    pathname: '/'
+  })
+  .then(str => {
+    console.log(str);
+  });
+
+export default app;

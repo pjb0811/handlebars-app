@@ -4,9 +4,16 @@ import renderApp from '../src';
 
 const app = express();
 
-app.get('*', function(req, res) {
-  res.status(200).send(req.url);
-  // res.render();
+app.get('*', async function(req, res) {
+  const renderString = renderApp.getString();
+  res.status(200).send(renderString);
+  /* renderApp
+    .renderRoutePage({
+      pathname: req.url
+    })
+    .then(str => {
+      res.status(200).send(str);
+    }); */
 });
 
 app.listen(9001);

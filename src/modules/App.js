@@ -1,3 +1,12 @@
+import domino from 'domino';
+
+if (!global.window) {
+  var window = domino.createWindow(
+    `<!doctype html><html><head></head><body><div id="root"></div></body></html>`
+  );
+  var document = window.document;
+}
+
 class App {
   constructor(props) {
     this.props = props;
@@ -8,75 +17,75 @@ class App {
     const { el = '', component = null, routes } = this.props;
 
     if (el && component) {
-      const element = document.querySelector(el);
+      this.rootElement = document.querySelector(el);
+
       this.render({
-        element,
+        element: this.rootElement,
         component
       });
 
       if (routes) {
-        this.setRouter(element);
+        this.setRouter();
       }
     }
   }
 
-  getHTML(id) {
-    const element = document.querySelector(id);
-    return element.innerHTML;
+  render(params) {
+    const { element, component } = params;
+    element.innerHTML = new component().render();
   }
 
-  setRouter(element) {
-    const { el, routes } = this.props;
-    const { pathname } = location;
-    const routeLinks = element.querySelectorAll('[data-route-link]');
-    const routePage = element.querySelector('[data-route-page]');
+  setRouter() {
+    const { routes } = this.props;
+    const { pathname } = document.location;
+    const routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
 
-    element.addEventListener('click', e => {
+    if (routes[pathname]) {
+      this.renderRoutePage({
+        pathname
+      });
+    }
+
+    this.rootElement.addEventListener('click', e => {
       const { target } = e;
       const link = target.getAttribute('data-route-link');
       if (link) {
         this.renderRoutePage({
-          name: link,
-          page: routePage,
-          routes
+          pathname: link
         });
       }
       this.stopEvent(e);
     });
-
-    if (routes[pathname]) {
-      this.renderRoutePage({
-        name: pathname,
-        page: routePage,
-        routes
-      });
-    }
   }
 
   async renderRoutePage(params) {
-    const { name, page, routes } = params;
-    let component = routes[name];
+    const { pathname } = params;
+    const { routes } = this.props;
+    const element = this.rootElement.querySelector('[data-route-page]');
+    let component = routes[pathname];
 
     if (typeof component === 'string') {
       component = await import(`../${component}`);
       component = component.default;
     }
+
+    history.pushState(null, pathname, pathname);
+
     this.render({
-      element: page,
+      element,
       component
     });
-    history.pushState(null, name, name);
-  }
 
-  render(params) {
-    const { element, component } = params;
-    const comp = new component();
-    element.innerHTML = comp.render();
+    return this.rootElement.innerHTML;
   }
 
   stopEvent(e) {
     e.preventDefault();
     e.stopPropagation();
+  }
+
+  getString() {
+    return this.rootElement.innerHTML;
   }
 }
 
