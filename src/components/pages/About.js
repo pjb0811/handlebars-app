@@ -1,4 +1,4 @@
-import aboutView from 'views/About.hbs';
+import aboutView from 'views/pages/About.hbs';
 
 class About {
   constructor(props) {

@@ -1,10 +1,10 @@
-import mainView from 'views/Main.hbs';
+import mainView from 'views/templates/Main.hbs';
 
 class Main {
   constructor(props) {
     this.props = props;
     this.state = {
-      message: 'main'
+      title: 'Main Templates'
     };
   }
 
@@ -12,7 +12,7 @@ class Main {
     const { message } = this.state;
 
     return mainView({
-      message
+      title
     });
   }
 }

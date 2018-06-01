@@ -1,4 +1,4 @@
-import homeView from 'views/Home.hbs';
+import homeView from 'views/pages/Home.hbs';
 
 class Home {
   constructor(props) {

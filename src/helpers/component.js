@@ -1,6 +1,6 @@
-const Handlebars = require('handlebars/runtime');
+import Handlebars from 'handlebars/runtime';
 
-module.exports = function(component, params) {
+export default (component, params) => {
   let comp;
   component = require(`../${component}`).default;
   comp = new component(params);
