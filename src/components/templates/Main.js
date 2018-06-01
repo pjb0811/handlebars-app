@@ -9,7 +9,7 @@ class Main {
   }
 
   render() {
-    const { message } = this.state;
+    const { title } = this.state;
 
     return mainView({
       title

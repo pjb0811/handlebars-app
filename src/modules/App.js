@@ -11,7 +11,7 @@ class App {
       this.rootElement = document.querySelector(el);
     }
 
-    if (el && component) {
+    if (component) {
       this.render({
         element: this.rootElement,
         component
@@ -19,27 +19,47 @@ class App {
     }
 
     if (routes) {
-      this.setRouter();
+      this.setRoute();
     }
   }
 
-  render(params) {
-    const { element, component } = params;
-    element.innerHTML = new component().render();
+  render({ element, component }) {
+    element.innerHTML = new component(this.props).render();
+    return element.innerHTML;
   }
 
-  setRouter() {
+  async getComponent({ route }) {
+    if (typeof route === 'string') {
+      component = await import(`../${route}`);
+      component = component.default;
+    }
+    return;
+  }
+
+  setRoute() {
     const { routes } = this.props;
     const { pathname } = document.location;
-    const routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
 
+    if (routes[pathname]) {
+      let component = this.getComponent({
+        path: routes[pathname]
+      });
+      this.render({
+        element: this.rootElement,
+        component
+      });
+    }
+
+    // const routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
+
+    /*
     if (routes[pathname]) {
       this.renderRoutePage({
         pathname
       });
     }
 
-    /* if (routes[pathname]) {
+    if (routes[pathname]) {
       this.renderRoutePage({
         pathname
       });
@@ -54,10 +74,41 @@ class App {
         });
       }
       this.stopEvent(e);
-    }); */
+    });
+    */
   }
 
-  /* async renderRoutePage(params) {
+  /* setRoute() {
+    const { routes } = this.props;
+    const { pathname } = document.location;
+    const routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
+
+    if (routes[pathname]) {
+      this.renderRoutePage({
+        pathname
+      });
+    }
+
+    if (routes[pathname]) {
+      this.renderRoutePage({
+        pathname
+      });
+    }
+
+    this.rootElement.addEventListener('click', e => {
+      const { target } = e;
+      const link = target.getAttribute('data-route-link');
+      if (link) {
+        this.renderRoutePage({
+          pathname: link
+        });
+      }
+      this.stopEvent(e);
+    });
+  } */
+
+  /*
+  async renderRoutePage(params) {
     const { pathname } = params;
     const { routes } = this.props;
     const element = this.rootElement.querySelector('[data-route-page]');
