@@ -1,4 +1,5 @@
 <div>
+  <h1>{{ state.title }}</h1>
   <ul>
     <li>
       <a data-route-link="/">Home</a>
@@ -7,6 +8,7 @@
       <a data-route-link="/about">About</a>
     </li>
   </ul>
-  {{ message }}
-  <div data-route-page=""></div>
+  <div data-route-page="">
+    {{[../../helpers/safeString] page }}
+  </div>
 </div>
