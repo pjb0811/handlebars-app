@@ -7,7 +7,7 @@ class Home {
     this.state = {
       title: 'home',
       input: {
-        value: 1234
+        value: 123
       }
     };
   }

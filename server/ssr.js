@@ -10,11 +10,11 @@ async function ssr({ url, pathname }) {
   const start = Date.now();
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-
+  // await page.setContent('<div>test</div>');
   /*
   try {
     await page.goto(url, { waitUntil: 'networkidle2' });
-    await page.waitForSelector('[data-route-page]');
+    await page.waitForSelector('#root');
   } catch (err) {
     console.error(err);
     throw new Error('page.goto/waitForSelector timed out.');

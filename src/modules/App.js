@@ -8,7 +8,7 @@ class App {
     const { el = '', component = null, routes } = this.props;
 
     if (el) {
-      this.rootElement = document.querySelector(el);
+      this.rootElement = document.body.querySelector(el);
     }
 
     if (component) {
@@ -30,7 +30,8 @@ class App {
 
   async getComponent({ component }) {
     if (typeof component === 'string') {
-      component = await import(`../${component}`);
+      component = await require(`../${component}`);
+
       component = component.default;
     }
     return component;
@@ -86,6 +87,8 @@ class App {
     });
 
     history.pushState({}, '', pathname);
+
+    return this.rootElement.innerHTML;
   }
 
   stopEvent(e) {
