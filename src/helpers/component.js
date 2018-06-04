@@ -1,8 +1,8 @@
-import Handlebars from 'handlebars/runtime';
+import safeString from './safeString';
 
-export default (component, params) => {
+export default (component, props) => {
   let comp;
   component = require(`../${component}`).default;
-  comp = new component(params);
-  return new Handlebars.SafeString(comp.render());
+  comp = new component(props);
+  return safeString(comp.render());
 };

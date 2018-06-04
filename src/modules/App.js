@@ -28,106 +28,65 @@ class App {
     return element.innerHTML;
   }
 
-  async getComponent({ route }) {
-    if (typeof route === 'string') {
-      component = await import(`../${route}`);
-      component = component.default;
-    }
-    return;
-  }
-
-  setRoute() {
-    const { routes } = this.props;
-    const { pathname } = document.location;
-
-    if (routes[pathname]) {
-      let component = this.getComponent({
-        path: routes[pathname]
-      });
-      this.render({
-        element: this.rootElement,
-        component
-      });
-    }
-
-    // const routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
-
-    /*
-    if (routes[pathname]) {
-      this.renderRoutePage({
-        pathname
-      });
-    }
-
-    if (routes[pathname]) {
-      this.renderRoutePage({
-        pathname
-      });
-    }
-
-    this.rootElement.addEventListener('click', e => {
-      const { target } = e;
-      const link = target.getAttribute('data-route-link');
-      if (link) {
-        this.renderRoutePage({
-          pathname: link
-        });
-      }
-      this.stopEvent(e);
-    });
-    */
-  }
-
-  /* setRoute() {
-    const { routes } = this.props;
-    const { pathname } = document.location;
-    const routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
-
-    if (routes[pathname]) {
-      this.renderRoutePage({
-        pathname
-      });
-    }
-
-    if (routes[pathname]) {
-      this.renderRoutePage({
-        pathname
-      });
-    }
-
-    this.rootElement.addEventListener('click', e => {
-      const { target } = e;
-      const link = target.getAttribute('data-route-link');
-      if (link) {
-        this.renderRoutePage({
-          pathname: link
-        });
-      }
-      this.stopEvent(e);
-    });
-  } */
-
-  /*
-  async renderRoutePage(params) {
-    const { pathname } = params;
-    const { routes } = this.props;
-    const element = this.rootElement.querySelector('[data-route-page]');
-    let component = routes[pathname];
-
+  async getComponent({ component }) {
     if (typeof component === 'string') {
       component = await import(`../${component}`);
       component = component.default;
     }
+    return component;
+  }
 
-    history.pushState({}, '', pathname);
+  async setRoute() {
+    const { routes } = this.props;
+    const { pathname } = document.location;
+
+    if (routes[pathname]) {
+      let routeLinks;
+      let component = await this.getComponent({
+        component: routes[pathname]
+      });
+
+      this.render({
+        element: this.rootElement,
+        component
+      });
+
+      routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
+      if (routeLinks.length) {
+        this.setLinks({
+          links: routeLinks
+        });
+      }
+    }
+  }
+
+  setLinks() {
+    this.rootElement.addEventListener('click', e => {
+      const { target } = e;
+      const link = target.getAttribute('data-route-link');
+      if (link) {
+        this.renderRoutePage({
+          pathname: link
+        });
+      }
+      this.stopEvent(e);
+    });
+  }
+
+  async renderRoutePage({ pathname }) {
+    const { routes } = this.props;
+
+    let component = await this.getComponent({
+      component: routes[pathname]
+    });
 
     this.render({
-      element,
+      element: this.rootElement,
       component
     });
 
-    return this.rootElement.innerHTML;
-  } */
+    history.pushState({}, '', pathname);
+  }
 
   stopEvent(e) {
     e.preventDefault();

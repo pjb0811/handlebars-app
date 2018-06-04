@@ -9,9 +9,9 @@ class Input {
   }
 
   render() {
-    const { a, b } = this.props;
+    const { value } = this.props;
     return InputView({
-      value: a + b
+      value
     });
   }
 }

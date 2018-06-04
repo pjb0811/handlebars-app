@@ -8,11 +8,11 @@ class Main {
     };
   }
 
-  render() {
-    const { title } = this.state;
-
+  render({ page }) {
+    const { state, props } = this;
     return mainView({
-      title
+      state,
+      page
     });
   }
 }

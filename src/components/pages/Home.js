@@ -1,19 +1,21 @@
+import Main from 'components/templates/Main';
 import homeView from 'views/pages/Home.hbs';
 
 class Home {
   constructor(props) {
     this.props = props;
     this.state = {
-      message: 'home',
-      test: {
-        a: 1,
-        b: '2'
+      title: 'home',
+      input: {
+        value: 1234
       }
     };
   }
 
   render() {
-    return homeView(this.state);
+    return new Main().render({
+      page: homeView(this.state)
+    });
   }
 }
 
