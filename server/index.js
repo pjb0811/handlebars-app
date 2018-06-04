@@ -1,37 +1,28 @@
-// import path from 'path';
-const path = require('path');
-const express = require('express');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const config = require('../webpack.dev.js');
+import fs from "fs";
+import path from "path";
+import express from "express";
+import webpack from "webpack";
+import webpackDevMiddleware from "webpack-dev-middleware";
+import config from "../webpack.prod.js";
+// import renderApp from "../src";
 
-// import express from 'express';
-// import webpack from 'webpack';
-// import webpackDevMiddleware from 'webpack-dev-middleware';
-// import * as config from '../webpack.dev.js';
-
-const app = express(),
-  DIST_DIR = path.join(__dirname, 'dist'),
-  PORT = 9001,
-  compiler = webpack(config);
+const app = express();
+const PORT = 9001;
+const compiler = webpack(config);
 
 app.use(
   webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath
+    publicPath: config.output.publicPath,
+    index: "/"
   })
 );
 
-app.get('*', (req, res, next) => {
-  const filename = path.join(DIST_DIR, 'index.html');
+app.get("*", async (req, res, next) => {
+  const template = path.join(__dirname, "../dist/index.html");
+  const beforeRenderHtml = fs.readFileSync(template).toString();
 
-  compiler.outputFileSystem.readFile(filename, (err, result) => {
-    if (err) {
-      return next(err);
-    }
-    res.set('content-type', 'text/html');
-    res.send(result);
-    res.end();
-  });
+  return res.status(200).send(beforeRenderHtml);
+  // res.sendFile(path.join(__dirname, "../dist/index.html"));
 });
 
 app.listen(PORT);

@@ -1,8 +1,8 @@
-import puppeteer from 'puppeteer';
+import puppeteer from "puppeteer";
 
 const RENDER_CACHE = new Map();
 
-async function ssr({ url, pathname }) {
+async function ssr({ url }) {
   if (RENDER_CACHE.has(url)) {
     return { html: RENDER_CACHE.get(url), ttRenderMs: 0 };
   }
@@ -11,15 +11,14 @@ async function ssr({ url, pathname }) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   // await page.setContent('<div>test</div>');
-  /*
+
   try {
-    await page.goto(url, { waitUntil: 'networkidle2' });
-    await page.waitForSelector('#root');
+    await page.goto(url, { waitUntil: "networkidle2" });
+    await page.waitForSelector("#root");
   } catch (err) {
     console.error(err);
-    throw new Error('page.goto/waitForSelector timed out.');
+    throw new Error("page.goto/waitForSelector timed out.");
   }
-  */
 
   const html = await page.content();
 
@@ -33,4 +32,4 @@ async function ssr({ url, pathname }) {
   return { html, ttRenderMs };
 }
 
-export { ssr as default };
+export default ssr;
