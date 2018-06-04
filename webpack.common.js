@@ -4,11 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
   entry: {
-    main: ['babel-polyfill', './src/index.js']
+    app: ['babel-polyfill', './src/index.js']
   },
-  devtool: 'inline-source-map',
   output: {
     filename: '[name].bundle.js',
     chunkFilename: '[name].[chunkhash].bundle.js',
@@ -34,12 +32,6 @@ module.exports = {
         }
       }
     ]
-  },
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    historyApiFallback: true,
-    hot: true
   },
   resolve: {
     alias: {

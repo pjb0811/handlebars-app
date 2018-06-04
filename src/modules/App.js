@@ -30,7 +30,7 @@ class App {
 
   async getComponent({ component }) {
     if (typeof component === 'string') {
-      component = await require(`../${component}`);
+      component = await import(`../${component}`);
 
       component = component.default;
     }
