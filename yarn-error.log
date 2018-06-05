@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add --dev webpakc-merge
+  /usr/local/bin/node /usr/local/bin/yarn add --dev puppeteer-renderer
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/we/.yarn/bin:/Users/we/.config/yarn/global/node_modules/.bin:/Users/we/Library/Android/sdk/tools:/Users/we/Library/Android/sdk/platform-tools
@@ -23,7 +23,7 @@ npm manifest:
       "start": "webpack-dev-server --port 9000 --config webpack.dev.js",
       "build": "webpack --config webpack.prod.js",
       "build:babel": "babel src --out-dir build --copy-files",
-      "serve": "nodemon server",
+      "serve": "nodemon server/start",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
@@ -31,7 +31,6 @@ npm manifest:
     "dependencies": {
       "babel-loader": "^7.1.4",
       "express": "^4.16.3",
-      "express-handlebars": "^3.0.0",
       "handlebars": "^4.0.11",
       "handlebars-loader": "^1.7.0",
       "webpack": "^4.8.1"
@@ -45,16 +44,17 @@ npm manifest:
       "babel-register": "^6.26.0",
       "babel-runtime": "^6.26.0",
       "clean-webpack-plugin": "^0.1.19",
-      "domino": "^2.0.2",
       "html-loader": "^0.5.5",
       "html-webpack-plugin": "^3.2.0",
       "jsdom": "^11.11.0",
       "jsdom-global": "^3.0.2",
       "puppeteer": "^1.4.0",
+      "url": "^0.11.0",
       "webpack-cli": "^2.1.3",
       "webpack-dev-middleware": "^3.1.3",
       "webpack-dev-server": "^3.1.4",
-      "webpack-hot-middleware": "^2.22.2"
+      "webpack-hot-middleware": "^2.22.2",
+      "webpack-merge": "^4.1.2"
     }
   }
 
@@ -385,10 +385,6 @@ Lockfile:
   arrify@^1.0.0, arrify@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
-  
-  asap@~2.0.3:
-    version "2.0.6"
-    resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   
   asn1.js@^4.0.0:
     version "4.10.1"
@@ -2058,10 +2054,6 @@ Lockfile:
     dependencies:
       domelementtype "1"
   
-  domino@^2.0.2:
-    version "2.0.2"
-    resolved "https://registry.yarnpkg.com/domino/-/domino-2.0.2.tgz#fa2da6ace8381cf64089079470ee33c53901010f"
-  
   domutils@1.1:
     version "1.1.6"
     resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.1.6.tgz#bddc3de099b9a2efacc51c623f28f416ecc57485"
@@ -2351,16 +2343,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/expand-tilde/-/expand-tilde-2.0.2.tgz#97e801aa052df02454de46b02bf621642cdc8502"
     dependencies:
       homedir-polyfill "^1.0.1"
-  
-  express-handlebars@^3.0.0:
-    version "3.0.0"
-    resolved "https://registry.yarnpkg.com/express-handlebars/-/express-handlebars-3.0.0.tgz#80a070bb819b09e4af2ca6d0780f75ce05e75c2f"
-    dependencies:
-      glob "^6.0.4"
-      graceful-fs "^4.1.2"
-      handlebars "^4.0.5"
-      object.assign "^4.0.3"
-      promise "^7.0.0"
   
   express@^4.16.2, express@^4.16.3:
     version "4.16.3"
@@ -2767,16 +2749,6 @@ Lockfile:
     version "0.3.0"
     resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.3.0.tgz#8c5a1494d2066c570cc3bfe4496175acc4d502ab"
   
-  glob@^6.0.4:
-    version "6.0.4"
-    resolved "https://registry.yarnpkg.com/glob/-/glob-6.0.4.tgz#0f08860f6a155127b2fadd4f9ce24b1aab6e4d22"
-    dependencies:
-      inflight "^1.0.4"
-      inherits "2"
-      minimatch "2 || 3"
-      once "^1.3.0"
-      path-is-absolute "^1.0.0"
-  
   glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
     version "7.1.2"
     resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
@@ -2896,7 +2868,7 @@ Lockfile:
       loader-utils "1.0.x"
       object-assign "^4.1.0"
   
-  handlebars@^4.0.11, handlebars@^4.0.5:
+  handlebars@^4.0.11:
     version "4.0.11"
     resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.11.tgz#630a35dfe0294bc281edae6ffc5d329fc7982dcc"
     dependencies:
@@ -4134,7 +4106,7 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
   
-  "minimatch@2 || 3", minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.4:
+  minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.4:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
     dependencies:
@@ -4441,7 +4413,7 @@ Lockfile:
     dependencies:
       isobject "^3.0.0"
   
-  object.assign@^4.0.3, object.assign@^4.1.0:
+  object.assign@^4.1.0:
     version "4.1.0"
     resolved "https://registry.yarnpkg.com/object.assign/-/object.assign-4.1.0.tgz#968bf1100d7956bb3ca086f006f846b3bc4008da"
     dependencies:
@@ -4860,12 +4832,6 @@ Lockfile:
   promise-inflight@^1.0.1:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
-  
-  promise@^7.0.0:
-    version "7.3.1"
-    resolved "https://registry.yarnpkg.com/promise/-/promise-7.3.1.tgz#064b72602b18f90f29192b8b1bc418ffd1ebd3bf"
-    dependencies:
-      asap "~2.0.3"
   
   proxy-addr@~2.0.3:
     version "2.0.3"
@@ -6373,6 +6339,12 @@ Lockfile:
       loglevelnext "^1.0.1"
       uuid "^3.1.0"
   
+  webpack-merge@^4.1.2:
+    version "4.1.2"
+    resolved "https://registry.yarnpkg.com/webpack-merge/-/webpack-merge-4.1.2.tgz#5d372dddd3e1e5f8874f5bf5a8e929db09feb216"
+    dependencies:
+      lodash "^4.17.5"
+  
   webpack-sources@^1.0.1, webpack-sources@^1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-1.1.0.tgz#a101ebae59d6507354d71d8013950a3a8b7a5a54"
@@ -6642,7 +6614,7 @@ Lockfile:
       yeoman-environment "^2.0.5"
 
 Trace: 
-  Error: https://registry.yarnpkg.com/webpakc-merge: Not found
+  Error: https://registry.yarnpkg.com/puppeteer-renderer: Not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:62098:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:123085:22)
       at Request.emit (events.js:182:13)

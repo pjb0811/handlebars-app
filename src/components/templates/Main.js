@@ -1,20 +1,22 @@
 import mainView from 'views/templates/Main.hbs';
 
-class Main {
-  constructor(props) {
-    this.props = props;
-    this.state = {
-      title: 'Main Templates'
-    };
-  }
+const Main = WrappedComponent => {
+  return class {
+    constructor(props) {
+      this.props = props;
+      this.state = {
+        title: 'Main Templates'
+      };
+    }
 
-  render({ page }) {
-    const { state, props } = this;
-    return mainView({
-      state,
-      page
-    });
-  }
-}
+    render() {
+      const { state, props } = this;
+      return mainView({
+        state,
+        page: new WrappedComponent(props).render()
+      });
+    }
+  };
+};
 
 export default Main;

@@ -1,5 +1,7 @@
-import puppeteer from "puppeteer";
+import puppeteer from 'puppeteer';
+import urlModule from 'url';
 
+const URL = urlModule.URL;
 const RENDER_CACHE = new Map();
 
 async function ssr({ url }) {
@@ -10,16 +12,16 @@ async function ssr({ url }) {
   const start = Date.now();
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  // await page.setContent('<div>test</div>');
 
   try {
-    await page.goto(url, { waitUntil: "networkidle2" });
-    await page.waitForSelector("#root");
+    const renderUrl = new URL(url);
+    renderUrl.searchParams.set('headless', '');
+    await page.goto(renderUrl.href, { waitUntil: 'networkidle2' });
+    await page.waitForSelector('#root');
   } catch (err) {
+    throw new Error('page.goto/waitForSelector timed out.');
     console.error(err);
-    throw new Error("page.goto/waitForSelector timed out.");
   }
-
   const html = await page.content();
 
   await browser.close();

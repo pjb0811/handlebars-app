@@ -13,10 +13,8 @@ class Home {
   }
 
   render() {
-    return new Main().render({
-      page: homeView(this.state)
-    });
+    return homeView(this.state);
   }
 }
 
-export default Home;
+export default Main(Home);

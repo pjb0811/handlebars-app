@@ -1,22 +1,20 @@
-import App from './modules/App';
+import Client from './modules/Client';
+import routes from './lib/routes';
 
 const Root = ({ Component }) => {
   return new Component({
     el: '#root',
-    routes: {
-      '/': 'components/pages/Home',
-      '/about': 'components/pages/About'
-    }
+    routes
   });
 };
 
 let app = Root({
-  Component: App
+  Component: Client
 });
 
 if (module.hot) {
-  module.hot.accept('./modules/App', () => {
-    const NewApp = require('./modules/App').default;
+  module.hot.accept('./modules/Client', () => {
+    const NewApp = require('./modules/Client').default;
     app = Root({
       Component: NewApp
     });

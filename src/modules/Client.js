@@ -1,4 +1,6 @@
-class App {
+// import getComponent from './getComponent';
+
+class Client {
   constructor(props) {
     this.props = props;
     this.init();
@@ -8,7 +10,7 @@ class App {
     const { el = '', component = null, routes } = this.props;
 
     if (el) {
-      this.rootElement = document.body.querySelector(el);
+      this.rootElement = this.getRootElement({ el });
     }
 
     if (component) {
@@ -39,7 +41,7 @@ class App {
 
   async setRoute() {
     const { routes } = this.props;
-    const { pathname } = document.location;
+    const pathname = this.getPathName();
 
     if (routes[pathname]) {
       let routeLinks;
@@ -61,6 +63,23 @@ class App {
     }
   }
 
+  async renderRoutePage({ pathname }) {
+    const { routes } = this.props;
+
+    let component = await this.getComponent({
+      component: routes[pathname]
+    });
+
+    this.render({
+      element: this.rootElement,
+      component
+    });
+
+    this.setHistory({ pathname });
+
+    return this.rootElement.innerHTML;
+  }
+
   setLinks() {
     this.rootElement.addEventListener('click', e => {
       const { target } = e;
@@ -74,21 +93,16 @@ class App {
     });
   }
 
-  async renderRoutePage({ pathname }) {
-    const { routes } = this.props;
+  getRootElement({ el }) {
+    return document.body.querySelector(el);
+  }
 
-    let component = await this.getComponent({
-      component: routes[pathname]
-    });
+  getPathName() {
+    return document.location.pathname;
+  }
 
-    this.render({
-      element: this.rootElement,
-      component
-    });
-
+  setHistory({ pathname }) {
     history.pushState({}, '', pathname);
-
-    return this.rootElement.innerHTML;
   }
 
   stopEvent(e) {
@@ -97,4 +111,4 @@ class App {
   }
 }
 
-export default App;
+export default Client;

@@ -10,10 +10,8 @@ class About {
   }
 
   render() {
-    return new Main().render({
-      page: aboutView(this.state)
-    });
+    return aboutView(this.state);
   }
 }
 
-export default About;
+export default Main(About);
