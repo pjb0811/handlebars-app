@@ -45,17 +45,14 @@ class Server {
 
   setHistory({ pathname }) {}
   */
-
-  /*
-  async getComponent({ component }) {
+  /* async getComponent({ component }) {
     if (typeof component === 'string') {
       component = await import(`../${component}`);
 
       component = component.default;
     }
     return component;
-  }
-  */
+  } */
 }
 
 export default Server;

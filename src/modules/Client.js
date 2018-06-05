@@ -1,9 +1,16 @@
-// import getComponent from './getComponent';
-
 class Client {
   constructor(props) {
     this.props = props;
     this.init();
+  }
+
+  async getComponent({ component }) {
+    if (typeof component === 'string') {
+      component = await import(`../${component}`);
+
+      component = component.default;
+    }
+    return component;
   }
 
   init() {
@@ -28,15 +35,6 @@ class Client {
   render({ element, component }) {
     element.innerHTML = new component(this.props).render();
     return element.innerHTML;
-  }
-
-  async getComponent({ component }) {
-    if (typeof component === 'string') {
-      component = await import(`../${component}`);
-
-      component = component.default;
-    }
-    return component;
   }
 
   async setRoute() {
