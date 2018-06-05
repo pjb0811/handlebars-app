@@ -4,9 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
   entry: {
-    app: ['babel-polyfill', 'webpack-hot-middleware/client', './src/index.js']
+    app: ['babel-polyfill', './src/index.js']
   },
   output: {
     filename: '[name].bundle.js',
@@ -21,6 +20,15 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: ['img:src']
+          }
         }
       },
       {
