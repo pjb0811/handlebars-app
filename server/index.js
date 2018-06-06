@@ -1,63 +1,50 @@
+import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import express from 'express';
-import webpack from 'webpack';
-// import webpackDevMiddleware from 'webpack-dev-middleware';
-// import config from '../webpack.prod.js';
-// import routes from '../src/lib/routes';
-// import Server from '../src/modules/Server';
 
-const server = express();
+import routes from '../src/lib/routes';
+import Server from '../src/modules/Server';
+// import ssr from "./ssr";
+
+const app = express();
+const server = http.createServer(app);
 const PORT = 9001;
 
-/*
-const compiler = webpack(config);
+// import webpack from 'webpack';
+// import webpackDevMiddleware from 'webpack-dev-middleware';
+// import config from '../webpack.dev.js';
+// const compiler = webpack(config);
 
-server.use(
+/* app.use(
   webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
     index: '/'
   })
-);
-*/
+); */
 
-/*
-server.use(express.static(path.join(__dirname, '../dist/index.html')));
-const staticFiles = ['/*.js'];
+// app.use(express.static('dist'));
+// app.use(express.static(path.join(__dirname, "../dist/index.html")));
+
+const staticFiles = ['/bundles/*'];
 staticFiles.forEach(file => {
-  server.get(file, (req, res) => {
+  app.get(file, (req, res) => {
     const filePath = path.join(__dirname, '../dist', req.url);
     res.sendFile(filePath);
   });
 });
-*/
 
-server.use(express.static('dist'));
-
-server.get('*', async (req, res, next) => {
+app.get('*', async (req, res, next) => {
   const template = path.join(__dirname, '../dist/index.html');
-  const beforeRenderHtml = fs.readFileSync(template).toString();
-  console.log(req.url);
-  // const app = new Server({
+  const html = fs.readFileSync(template).toString();
+  // const url = `${req.protocol}://${"localhost:9001"}${req.url}`;
+  // const { html, ttRenderMs } = await ssr({ url });
+  // const serverApp = new Server({
   //   el: '#root',
   //   routes,
   //   pathname: req.url
   // });
-
-  return res.status(200).send(beforeRenderHtml);
+  res.status(200).send(html);
 });
 
 server.listen(PORT);
-
-/*
-const compiler = webpack(config);
-
-server.use(
-  webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    index: '/'
-  })
-);
-*/
-
-// server.use(express.static(path.join(__dirname, '../dist')));

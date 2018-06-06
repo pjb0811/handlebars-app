@@ -1,7 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -9,8 +6,7 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    chunkFilename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -29,13 +25,5 @@ module.exports = {
       components: path.resolve('./src/components'),
       views: path.resolve('./src/views')
     }
-  },
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  }
 };

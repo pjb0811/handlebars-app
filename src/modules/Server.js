@@ -8,35 +8,40 @@ class Server {
     this.init();
   }
 
-  /* init() {
-    const { el = '', component = null, pathname } = this.props;
-
-    if (el) {
-      this.rootElement = this.getRootElement({ el });
-    }
-
-
-    // if (component) {
-    //   this.render({
-    //     element: this.rootElement,
-    //     component
-    //   });
+  init() {
+    // const { el = "", routes, pathname } = this.props;
+    // if (el) {
+    //   this.rootElement = this.getRootElement({ el });
     // }
-
     // if (routes) {
     //   this.setRoute();
     // }
-
-  } */
+  }
 
   /* getRootElement({ el }) {
-    const div = document.createElement('div');
-    document.body.innerHTML = '';
-    div.setAttribute('id', el.replace('#', ''));
+    const div = document.createElement("div");
+    document.body.innerHTML = "";
+    div.setAttribute("id", el.replace("#", ""));
     document.body.appendChild(div);
     return document.body.querySelector(el);
   } */
 
+  /* setRoute() {
+    const { routes, pathname } = this.props;
+    const component = require("../" + routes[pathname]).default;
+    this.render({
+      element: this.rootElement,
+      component
+    });
+
+    console.log(this.rootElement);
+  }
+
+  render({ element, component }) {
+    element.innerHTML = new component(this.props).render();
+    return element.innerHTML;
+  }
+ */
   /*
   getPathName() {
     const { pathname } = this.props;
