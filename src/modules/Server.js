@@ -1,6 +1,6 @@
-require('jsdom-global')(`<!DOCTYPE html><body>`, {
-  url: 'http://localhost:9001/'
-});
+// require('jsdom-global')(`<!DOCTYPE html><body>`, {
+//   url: 'http://localhost:9001/'
+// });
 
 class Server {
   constructor(props) {

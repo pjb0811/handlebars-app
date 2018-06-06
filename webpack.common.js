@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -13,9 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.hbs$/,
-        use: {
-          loader: 'handlebars-loader'
-        }
+        use: 'handlebars-loader'
       },
       {
         test: /\.js$/,
@@ -31,5 +31,12 @@ module.exports = {
       components: path.resolve('./src/components'),
       views: path.resolve('./src/views')
     }
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html'
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };

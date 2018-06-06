@@ -4,15 +4,6 @@ class App {
     this.init();
   }
 
-  async getComponent({ component }) {
-    if (typeof component === 'string') {
-      component = await import(`../${component}`);
-
-      component = component.default;
-    }
-    return component;
-  }
-
   init() {
     const { el = '', component = null, routes } = this.props;
 
@@ -30,6 +21,15 @@ class App {
     if (routes) {
       this.setRoute();
     }
+  }
+
+  async getComponent({ component }) {
+    if (typeof component === 'string') {
+      component = await import(`../${component}`);
+
+      component = component.default;
+    }
+    return component;
   }
 
   render({ element, component }) {
