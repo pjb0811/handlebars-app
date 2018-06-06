@@ -1,6 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -8,7 +6,7 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    chunkFilename: '[name].[chunkhash].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -16,13 +14,7 @@ module.exports = {
       {
         test: /\.hbs$/,
         use: {
-          loader: 'handlebars-loader',
-          options: {
-            helperDirs: path.join(__dirname, 'src/helpers'),
-            precompileOptions: {
-              knownHelpersOnly: false
-            }
-          }
+          loader: 'handlebars-loader'
         }
       },
       {
@@ -39,12 +31,5 @@ module.exports = {
       components: path.resolve('./src/components'),
       views: path.resolve('./src/views')
     }
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  }
 };

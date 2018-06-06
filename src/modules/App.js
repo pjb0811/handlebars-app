@@ -1,4 +1,4 @@
-class Client {
+class App {
   constructor(props) {
     this.props = props;
     this.init();
@@ -109,4 +109,4 @@ class Client {
   }
 }
 
-export default Client;
+export default App;

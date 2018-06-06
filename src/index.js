@@ -1,4 +1,4 @@
-import Client from './modules/Client';
+import App from './modules/App';
 import routes from './lib/routes';
 
 const Root = ({ Component }) => {
@@ -9,12 +9,12 @@ const Root = ({ Component }) => {
 };
 
 let app = Root({
-  Component: Client
+  Component: App
 });
 
 if (module.hot) {
-  module.hot.accept('./modules/Client', () => {
-    const NewApp = require('./modules/Client').default;
+  module.hot.accept('./modules/App', () => {
+    const NewApp = require('./modules/App').default;
     app = Root({
       Component: NewApp
     });
