@@ -6,8 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --port 9000 --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "build:babel": "babel src --out-dir build --copy-files",
-    "serve": "npm run build && nodemon server/start",
+    "build:babel": "babel src --d build --copy-files",
+    "serve": "npm run build && nodemon server/index --exec babel-node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

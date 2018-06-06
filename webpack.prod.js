@@ -10,14 +10,13 @@ module.exports = merge(common, {
   devtool: 'source-map',
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'dist/bundles'),
-    publicPath: '/bundles/'
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      filename: '../index.html'
+      template: './public/index.html'
     }),
     new UglifyJSPlugin({
       sourceMap: true
