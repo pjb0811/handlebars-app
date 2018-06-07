@@ -8,12 +8,12 @@ class App {
     const { el = '', component = null, routes } = this.props;
 
     if (el) {
-      this.rootElement = this.getRootElement({ el });
+      this.props.element = this.getRootElement({ el });
     }
 
     if (component) {
       this.render({
-        element: this.rootElement,
+        element: this.props.element,
         component
       });
     }
@@ -48,11 +48,11 @@ class App {
       });
 
       this.render({
-        element: this.rootElement,
+        element: this.props.element,
         component
       });
 
-      routeLinks = this.rootElement.querySelectorAll('[data-route-link]');
+      routeLinks = this.props.element.querySelectorAll('[data-route-link]');
       if (routeLinks.length) {
         this.setLinks({
           links: routeLinks
@@ -69,17 +69,17 @@ class App {
     });
 
     this.render({
-      element: this.rootElement,
+      element: this.props.element,
       component
     });
 
     this.setHistory({ pathname });
 
-    return this.rootElement.innerHTML;
+    return this.props.element.innerHTML;
   }
 
   setLinks() {
-    this.rootElement.addEventListener('click', e => {
+    this.props.element.addEventListener('click', e => {
       const { target } = e;
       const link = target.getAttribute('data-route-link');
       if (link) {
