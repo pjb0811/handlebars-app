@@ -5,8 +5,7 @@ import express from 'express';
 
 // import routes from '../src/lib/routes';
 // import Server from '../src/modules/Server';
-
-import ssr from './ssr';
+// import ssr from './ssr';
 
 const app = express();
 const server = http.createServer(app);
@@ -17,25 +16,23 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import config from '../webpack.dev.js';
 const compiler = webpack(config);
 
-app.use(
+/* app.use(
   webpackDevMiddleware(compiler, {
-    index: '/',
-    serverSideRender: true
+    publicPath: '/bundles/',
+    index: '/bundles/'
   })
-);
+); */
 
-// app.use(express.static('dist'));
+// app.use(express.static('dist/bundles'));
 // app.use(express.static(path.join(__dirname, "../dist/index.html")));
 
-/* 
 const staticFiles = ['/bundles/*'];
 staticFiles.forEach(file => {
   app.get(file, (req, res) => {
     const filePath = path.join(__dirname, '../dist', req.url);
     res.sendFile(filePath);
   });
-}); 
-*/
+});
 
 function normalizeAssets(assets) {
   return Array.isArray(assets) ? assets : [assets];
@@ -44,13 +41,14 @@ function normalizeAssets(assets) {
 app.get('*', async (req, res, next) => {
   const template = path.join(__dirname, '../dist/index.html');
   const beforeRenderHtml = fs.readFileSync(template).toString();
+  console.log(req.url);
 
   // const url = `${req.protocol}://${req.get('host')}${req.url}`;
   // const { html, ttRenderMs } = await ssr({ url });
 
-  res.status(200).send(html);
+  res.status(200).send(beforeRenderHtml);
 
-  /* 
+  /*
   let assets = res.locals.webpackStats.toJson().assetsByChunkName;
   assets = typeof assets === 'string' ? { app: assets } : assets;
   assets = Array.isArray(assets) ? assets : Object.values(assets);
@@ -68,7 +66,7 @@ app.get('*', async (req, res, next) => {
       <div id="root"></div>
       ${js.map(path => `<script src="${path}"></script>`).join('\n')}
     </body>
-  </html> 
+  </html>
   `);
   */
 });

@@ -9,16 +9,16 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = merge(common, {
   devtool: 'source-map',
   mode: 'production',
-  // output: {
-  //   path: path.resolve(__dirname, 'dist'),
-  //   publicPath: '/'
-  // },
+  output: {
+    path: path.resolve(__dirname, 'dist/bundles'),
+    publicPath: '/bundles/'
+  },
   plugins: [
-    // new CleanWebpackPlugin(['dist']),
-    // new HtmlWebpackPlugin({
-    //   template: './public/index.html',
-    //   filename: 'index.html'
-    // }),
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      filename: '../index.html'
+    }),
     new UglifyJSPlugin({
       sourceMap: true
     }),
