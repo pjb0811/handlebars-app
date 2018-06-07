@@ -13,7 +13,6 @@ class App {
 
     if (component) {
       this.render({
-        element: this.props.element,
         component
       });
     }
@@ -32,9 +31,10 @@ class App {
     return component;
   }
 
-  render({ element, component }) {
-    element.innerHTML = new component(this.props).render();
-    return element.innerHTML;
+  render({ component }) {
+    new component({
+      element: this.props.element
+    });
   }
 
   async setRoute() {
@@ -48,7 +48,6 @@ class App {
       });
 
       this.render({
-        element: this.props.element,
         component
       });
 
@@ -69,7 +68,6 @@ class App {
     });
 
     this.render({
-      element: this.props.element,
       component
     });
 

@@ -1,20 +1,40 @@
 import mainView from 'views/templates/Main.hbs';
+import Component from 'modules/Component';
 
 const Main = WrappedComponent => {
-  return class {
+  return class extends Component {
     constructor(props) {
-      this.props = props;
+      super(props);
       this.state = {
-        title: 'Main Templates'
+        title: 'test1'
       };
+      this.init({
+        component: this,
+        view: mainView,
+        element: this.props.element
+      });
+      this.WrappedComponent = new WrappedComponent({
+        element: this.getPageElement()
+      });
     }
 
-    render() {
-      const { state, props } = this;
-      return mainView({
-        state,
-        page: new WrappedComponent(props).render()
+    getPageElement() {
+      return this.props.element.querySelector('[data-route-page]');
+    }
+
+    changeTitle() {
+      let { title } = this.state;
+      this.setState({
+        title: title === 'test1' ? 'test2' : 'test1'
       });
+
+      this.WrappedComponent.init({
+        component: this.WrappedComponent,
+        view: this.WrappedComponent.view,
+        element: this.getPageElement()
+      });
+
+      this.WrappedComponent.render();
     }
   };
 };

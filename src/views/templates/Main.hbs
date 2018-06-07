@@ -1,5 +1,8 @@
 <div>
-  <h1>{{ state.title }}</h1>
+  <h1>{{ title }}</h1>
+  <div>
+    <button data-on-click="changeTitle">change title</button>
+  </div>
   <ul>
     <li>
       <a data-route-link="/">Home</a>
@@ -8,7 +11,5 @@
       <a data-route-link="/about">About</a>
     </li>
   </ul>
-  <div data-route-page="">
-    {{ safeString page }}
-  </div>
+  <div data-route-page=""></div>
 </div>

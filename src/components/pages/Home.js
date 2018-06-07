@@ -1,19 +1,22 @@
 import Main from 'components/templates/Main';
+import Component from 'modules/Component';
 import homeView from 'views/pages/Home.hbs';
 
-class Home {
+class Home extends Component {
   constructor(props) {
-    this.props = props;
+    super(props);
     this.state = {
-      title: 'home',
-      input: {
-        value: 123
-      }
+      title: 'home'
     };
+    this.init({
+      component: this,
+      view: homeView,
+      element: this.props.element
+    });
   }
 
-  render() {
-    return homeView(this.state);
+  chanageTitle() {
+    console.log('test');
   }
 }
 

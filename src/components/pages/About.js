@@ -1,16 +1,18 @@
 import Main from 'components/templates/Main';
+import Component from 'modules/Component';
 import aboutView from 'views/pages/About.hbs';
 
-class About {
+class About extends Component {
   constructor(props) {
-    this.props = props;
+    super(props);
     this.state = {
       title: 'about'
     };
-  }
-
-  render() {
-    return aboutView(this.state);
+    this.init({
+      component: this,
+      view: aboutView,
+      element: this.props.element
+    });
   }
 }
 

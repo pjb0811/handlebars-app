@@ -33,6 +33,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      modules: path.resolve('./src/modules'),
       components: path.resolve('./src/components'),
       views: path.resolve('./src/views')
     }

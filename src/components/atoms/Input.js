@@ -4,12 +4,12 @@ class Input {
   constructor(props) {
     this.props = props;
     this.state = {
-      value: ''
+      value: 123
     };
   }
 
   render() {
-    const { value } = this.props;
+    const { value } = this.state;
     return InputView({
       value
     });
