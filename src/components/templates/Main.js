@@ -6,15 +6,33 @@ const Main = WrappedComponent => {
     constructor(props) {
       super(props);
       this.state = {
-        title: 'test1'
+        title: 'template'
       };
+
       this.init({
-        component: this,
         view: mainView,
         element: this.props.element
       });
-      this.WrappedComponent = new WrappedComponent({
-        element: this.getElement('[data-route-page]')
+
+      /* this.setChilds({
+        childs: [
+          new WrappedComponent({
+            element: this.getElement('#page')
+          })
+        ]
+      }); */
+
+      /* this.WrappedComponent = new WrappedComponent({
+        element: this.getElement('#page')
+      }); */
+    }
+
+    afterRender() {
+      this.setState({
+        page: {
+          pathname: this.props.pathname,
+          element: this.getElement('#page')
+        }
       });
     }
 
@@ -24,13 +42,12 @@ const Main = WrappedComponent => {
         title: title === 'test1' ? 'test2' : 'test1'
       });
 
-      this.WrappedComponent.init({
-        component: this.WrappedComponent,
+      /* this.WrappedComponent.init({
         view: this.WrappedComponent.view,
-        element: this.getElement('[data-route-page]')
+        element: this.getElement('#page')
       });
 
-      this.WrappedComponent.render();
+      this.WrappedComponent.render(); */
     }
   };
 };

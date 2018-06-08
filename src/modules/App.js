@@ -31,8 +31,9 @@ class App {
     return component;
   }
 
-  render({ component }) {
+  render({ pathname = '', component }) {
     new component({
+      pathname,
       element: this.props.element
     });
   }
@@ -48,6 +49,7 @@ class App {
       });
 
       this.render({
+        pathname: routes[pathname],
         component
       });
 
@@ -68,6 +70,7 @@ class App {
     });
 
     this.render({
+      pathname: routes[pathname],
       component
     });
 

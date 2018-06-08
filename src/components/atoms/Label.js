@@ -1,7 +1,7 @@
 import Component from 'modules/Component';
-import inputView from 'views/atoms/Input';
+import labelView from 'views/atoms/Label';
 
-class Input extends Component {
+class Label extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,14 +9,10 @@ class Input extends Component {
     };
     this.init({
       component: this,
-      view: inputView,
+      view: labelView,
       element: this.props.element
     });
   }
-
-  changeInput() {
-    console.log(this.state);
-  }
 }
 
-export default Input;
+export default Label;

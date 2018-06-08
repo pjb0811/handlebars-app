@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --port 8080 --config webpack.dev.js",
+    "start": "webpack-dev-server --port 9000 --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "build:babel": "babel src --d build --copy-files",
     "serve": "npm run build && nodemon server/index --exec babel-node",

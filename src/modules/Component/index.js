@@ -5,18 +5,18 @@ class Component {
     this.props = props;
   }
 
-  init({ component, view, element }) {
+  init({ view, element }) {
     this.view = view;
-    this.component = component;
     this.props.element = element;
-    this.setElement();
-    this.setEventHandler({ component });
+    this.childs = [];
+    this.setHTML();
+    this.setEventHandler();
     this.afterRender();
   }
 
   render() {
-    this.setElement();
-    this.eventHandler.rebind();
+    this.setHTML();
+    this._eventHandler.rebind();
     return this.props.element.innerHTML;
   }
 
@@ -25,18 +25,26 @@ class Component {
   setState(nextState) {
     this.state = Object.assign({}, this.state, nextState);
     this.render();
-  }
 
-  setEventHandler({ component }) {
-    const { element } = this.props;
-    this.eventHandler = new EventHandler({
-      element,
-      component
+    this.childs.map(child => {
+      child.init({
+        view: child.view,
+        element: child.props.element
+      });
+      child.render();
     });
-    this.eventHandler.rebind();
   }
 
-  setElement() {
+  setEventHandler() {
+    const { element } = this.props;
+    this._eventHandler = new EventHandler({
+      element,
+      component: this
+    });
+    this._eventHandler.rebind();
+  }
+
+  setHTML() {
     const { element } = this.props;
     element.innerHTML = this.view(this.state);
   }
@@ -44,6 +52,10 @@ class Component {
   getElement(seletor) {
     const { element } = this.props;
     return element.querySelector(seletor);
+  }
+
+  setChilds({ childs }) {
+    this.childs = childs;
   }
 }
 

@@ -1,22 +1,18 @@
 import Component from 'modules/Component';
-import inputView from 'views/atoms/Input';
+import buttonsView from 'views/molecules/Buttons';
 
-class Input extends Component {
+class Buttons extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '123'
+      title: 'button'
     };
     this.init({
       component: this,
-      view: inputView,
+      view: buttonsView,
       element: this.props.element
     });
   }
-
-  changeInput() {
-    console.log(this.state);
-  }
 }
 
-export default Input;
+export default Buttons;

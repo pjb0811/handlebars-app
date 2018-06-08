@@ -1,8 +1,15 @@
 <form>
-  <h3>Form</h3>
+  <h3>{{ title }}</h3>
+  <div>
+    <input type="text"/>
+    <button data-on-click="changeTitle">change title</button>
+  </div>
   {{!--
-  {{component 'components/organisms/Form' form }}
-  {{component 'components/organisms/Form' form }}
-  {{component 'components/organisms/Form' form }}
+  <div id="field">
+    {{component 'components/molecules/Field' field }}
+  </div>
+  <div id="buttons">
+    {{component 'components/molecules/Buttons' buttons }}
+  </div>
   --}}
 </form>
