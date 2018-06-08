@@ -1,7 +1,6 @@
 import Main from 'components/templates/Main';
 import Component from 'modules/Component';
 import homeView from 'views/pages/Home';
-// import Form from 'components/organisms/Form';
 
 class Home extends Component {
   constructor(props) {
@@ -11,8 +10,7 @@ class Home extends Component {
     };
 
     this.init({
-      view: homeView,
-      element: this.props.element
+      view: homeView
     });
   }
 
@@ -20,14 +18,6 @@ class Home extends Component {
     let { title } = this.state;
     this.setState({
       title: title === 'home' ? 'home1' : 'home'
-    });
-  }
-
-  afterRender() {
-    this.setState({
-      form: {
-        element: this.getElement('#form')
-      }
     });
   }
 }

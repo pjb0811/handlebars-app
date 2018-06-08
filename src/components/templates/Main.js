@@ -11,16 +11,12 @@ const Main = WrappedComponent => {
 
       this.init({
         view: mainView,
-        element: this.props.element
-      });
-    }
-
-    afterRender() {
-      this.setState({
-        page: {
-          pathname: this.props.pathname,
-          element: this.getElement('#page'),
-          WrappedComponent
+        childs: {
+          page: {
+            pathname: this.props.pathname,
+            el: '#page',
+            WrappedComponent
+          }
         }
       });
     }

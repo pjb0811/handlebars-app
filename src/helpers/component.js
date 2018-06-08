@@ -2,18 +2,14 @@ import safeString from './safeString';
 
 export default (component, props) => {
   let comp;
-  if (props && props.WrappedComponent && props.element) {
+
+  if (props && props.pathname && props.WrappedComponent && props.element) {
     comp = new props.WrappedComponent({
+      el: props.el,
       element: props.element
     });
     return safeString(comp.render());
   }
 
-  if (props && props.element) {
-    component = require(`../${component}`).default;
-    comp = new component(props);
-    return safeString(comp.render());
-  }
-
-  return safeString('<div></div>');
+  return safeString('');
 };

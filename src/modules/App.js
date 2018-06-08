@@ -25,16 +25,17 @@ class App {
   async getComponent({ component }) {
     if (typeof component === 'string') {
       component = await import(`../${component}`);
-
       component = component.default;
     }
     return component;
   }
 
   render({ pathname = '', component }) {
+    const { el, element } = this.props;
     new component({
+      el,
       pathname,
-      element: this.props.element
+      element
     });
   }
 
