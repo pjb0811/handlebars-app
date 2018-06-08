@@ -22,14 +22,14 @@ class Home extends Component {
       title: title === 'home' ? 'home1' : 'home'
     });
   }
-  /*
+
   afterRender() {
     this.setState({
       form: {
         element: this.getElement('#form')
       }
     });
-  } */
+  }
 }
 
 export default Main(Home);

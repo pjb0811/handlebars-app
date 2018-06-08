@@ -8,7 +8,6 @@ class Component {
   init({ view, element }) {
     this.view = view;
     this.props.element = element;
-    this.childs = [];
     this.setHTML();
     this.setEventHandler();
     this.afterRender();
@@ -25,14 +24,6 @@ class Component {
   setState(nextState) {
     this.state = Object.assign({}, this.state, nextState);
     this.render();
-
-    this.childs.map(child => {
-      child.init({
-        view: child.view,
-        element: child.props.element
-      });
-      child.render();
-    });
   }
 
   setEventHandler() {
@@ -52,10 +43,6 @@ class Component {
   getElement(seletor) {
     const { element } = this.props;
     return element.querySelector(seletor);
-  }
-
-  setChilds({ childs }) {
-    this.childs = childs;
   }
 }
 

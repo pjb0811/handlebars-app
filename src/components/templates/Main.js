@@ -13,25 +13,14 @@ const Main = WrappedComponent => {
         view: mainView,
         element: this.props.element
       });
-
-      /* this.setChilds({
-        childs: [
-          new WrappedComponent({
-            element: this.getElement('#page')
-          })
-        ]
-      }); */
-
-      /* this.WrappedComponent = new WrappedComponent({
-        element: this.getElement('#page')
-      }); */
     }
 
     afterRender() {
       this.setState({
         page: {
           pathname: this.props.pathname,
-          element: this.getElement('#page')
+          element: this.getElement('#page'),
+          WrappedComponent
         }
       });
     }
@@ -41,13 +30,6 @@ const Main = WrappedComponent => {
       this.setState({
         title: title === 'test1' ? 'test2' : 'test1'
       });
-
-      /* this.WrappedComponent.init({
-        view: this.WrappedComponent.view,
-        element: this.getElement('#page')
-      });
-
-      this.WrappedComponent.render(); */
     }
   };
 };
