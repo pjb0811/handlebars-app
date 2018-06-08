@@ -1,6 +1,6 @@
 import Main from 'components/templates/Main';
 import Component from 'modules/Component';
-import homeView from 'views/pages/Home.hbs';
+import homeView from 'views/pages/Home';
 
 class Home extends Component {
   constructor(props) {
@@ -16,7 +16,18 @@ class Home extends Component {
   }
 
   chanageTitle() {
-    console.log('test');
+    let { title } = this.state;
+    this.setState({
+      title: title === 'home' ? 'home1' : 'home'
+    });
+  }
+
+  afterRender() {
+    this.setState({
+      form: {
+        element: this.getElement('#form')
+      }
+    });
   }
 }
 

@@ -1,4 +1,4 @@
-import mainView from 'views/templates/Main.hbs';
+import mainView from 'views/templates/Main';
 import Component from 'modules/Component';
 
 const Main = WrappedComponent => {
@@ -14,12 +14,8 @@ const Main = WrappedComponent => {
         element: this.props.element
       });
       this.WrappedComponent = new WrappedComponent({
-        element: this.getPageElement()
+        element: this.getElement('[data-route-page]')
       });
-    }
-
-    getPageElement() {
-      return this.props.element.querySelector('[data-route-page]');
     }
 
     changeTitle() {
@@ -31,7 +27,7 @@ const Main = WrappedComponent => {
       this.WrappedComponent.init({
         component: this.WrappedComponent,
         view: this.WrappedComponent.view,
-        element: this.getPageElement()
+        element: this.getElement('[data-route-page]')
       });
 
       this.WrappedComponent.render();

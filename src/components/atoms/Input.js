@@ -1,4 +1,4 @@
-import InputView from 'views/atoms/Input.hbs';
+import InputView from 'views/atoms/Input';
 
 class Input {
   constructor(props) {
@@ -6,13 +6,6 @@ class Input {
     this.state = {
       value: 123
     };
-  }
-
-  render() {
-    const { value } = this.state;
-    return InputView({
-      value
-    });
   }
 }
 

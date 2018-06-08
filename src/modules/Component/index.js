@@ -9,15 +9,18 @@ class Component {
     this.view = view;
     this.component = component;
     this.props.element = element;
-    this.props.element.innerHTML = view(this.state);
+    this.setElement();
     this.setEventHandler({ component });
+    this.afterRender();
   }
 
   render() {
-    this.props.element.innerHTML = this.view(this.state);
+    this.setElement();
     this.eventHandler.rebind();
     return this.props.element.innerHTML;
   }
+
+  afterRender() {}
 
   setState(nextState) {
     this.state = Object.assign({}, this.state, nextState);
@@ -31,6 +34,16 @@ class Component {
       component
     });
     this.eventHandler.rebind();
+  }
+
+  setElement() {
+    const { element } = this.props;
+    element.innerHTML = this.view(this.state);
+  }
+
+  getElement(seletor) {
+    const { element } = this.props;
+    return element.querySelector(seletor);
   }
 }
 

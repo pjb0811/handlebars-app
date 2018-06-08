@@ -36,7 +36,8 @@ module.exports = {
       modules: path.resolve('./src/modules'),
       components: path.resolve('./src/components'),
       views: path.resolve('./src/views')
-    }
+    },
+    extensions: ['.js', '.hbs']
   },
   plugins: [
     new HtmlWebpackPlugin({

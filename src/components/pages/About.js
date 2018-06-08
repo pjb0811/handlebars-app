@@ -1,6 +1,6 @@
 import Main from 'components/templates/Main';
 import Component from 'modules/Component';
-import aboutView from 'views/pages/About.hbs';
+import aboutView from 'views/pages/About';
 
 class About extends Component {
   constructor(props) {
