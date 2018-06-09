@@ -30,11 +30,10 @@ class App {
     return component;
   }
 
-  render({ pathname = '', component }) {
+  render({ component }) {
     const { el, element } = this.props;
     new component({
       el,
-      pathname,
       element
     });
   }
